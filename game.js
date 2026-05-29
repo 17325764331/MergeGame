@@ -4,18 +4,18 @@
   const STEP_SECONDS = 1 / 60;
 
   const WEAPON_TIERS = Object.freeze([
-    { tier: 1, id: "wood-stick", name: "木棍", radius: 12, color: "#9f7b50", defenseGain: 10 },
-    { tier: 2, id: "knife", name: "小刀", radius: 14, color: "#c2d0df", defenseGain: 18 },
-    { tier: 3, id: "short-sword", name: "短剑", radius: 16, color: "#9bb9d5", defenseGain: 32 },
-    { tier: 4, id: "long-sword", name: "长剑", radius: 19, color: "#86a9d4", defenseGain: 58 },
-    { tier: 5, id: "shield-kit", name: "盾牌战具", radius: 22, color: "#7aa8b9", defenseGain: 105 },
-    { tier: 6, id: "musket", name: "火枪", radius: 25, color: "#7f8db0", defenseGain: 189 },
-    { tier: 7, id: "rifle", name: "步枪", radius: 28, color: "#6f9bc9", defenseGain: 340 },
-    { tier: 8, id: "machine-gun", name: "机枪", radius: 31, color: "#5b87bf", defenseGain: 612 },
-    { tier: 9, id: "rocket-launcher", name: "火箭筒", radius: 35, color: "#5a7bb0", defenseGain: 1102 },
-    { tier: 10, id: "tank", name: "坦克", radius: 40, color: "#5a8f7a", defenseGain: 1984 },
-    { tier: 11, id: "fighter-jet", name: "战斗机", radius: 46, color: "#5f7a98", defenseGain: 3571 },
-    { tier: 12, id: "nuclear", name: "核武器", radius: 52, color: "#d89b52", defenseGain: 6428 },
+    { tier: 1, id: "wood-stick", name: "木棍", radius: 18, color: "#9f7b50", defenseGain: 10 },
+    { tier: 2, id: "knife", name: "小刀", radius: 21, color: "#c2d0df", defenseGain: 18 },
+    { tier: 3, id: "short-sword", name: "短剑", radius: 24, color: "#9bb9d5", defenseGain: 32 },
+    { tier: 4, id: "long-sword", name: "长剑", radius: 29, color: "#86a9d4", defenseGain: 58 },
+    { tier: 5, id: "shield-kit", name: "盾牌战具", radius: 33, color: "#7aa8b9", defenseGain: 105 },
+    { tier: 6, id: "musket", name: "火枪", radius: 38, color: "#7f8db0", defenseGain: 189 },
+    { tier: 7, id: "rifle", name: "步枪", radius: 42, color: "#6f9bc9", defenseGain: 340 },
+    { tier: 8, id: "machine-gun", name: "机枪", radius: 47, color: "#5b87bf", defenseGain: 612 },
+    { tier: 9, id: "rocket-launcher", name: "火箭筒", radius: 53, color: "#5a7bb0", defenseGain: 1102 },
+    { tier: 10, id: "tank", name: "坦克", radius: 60, color: "#5a8f7a", defenseGain: 1984 },
+    { tier: 11, id: "fighter-jet", name: "战斗机", radius: 69, color: "#5f7a98", defenseGain: 3571 },
+    { tier: 12, id: "nuclear", name: "核武器", radius: 42, color: "#d89b52", defenseGain: 6428 },
   ]);
   const SPAWN_POOL = [1, 1, 1, 2, 2, 3];
   const GRAVITY = 1500;
