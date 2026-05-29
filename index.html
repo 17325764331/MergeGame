@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Defense Merge Drop</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app" aria-label="Defense Merge Drop Game">
+      <header class="topbar">
+        <h1 class="title">Defense Merge Drop</h1>
+        <div class="scoreboard" role="status" aria-live="polite">
+          <p class="score-item">国防值 <strong id="defense-value">0</strong></p>
+          <p class="score-item">最高国防值 <strong id="best-defense-value">0</strong></p>
+        </div>
+        <button id="new-game" class="action-btn" type="button">新游戏</button>
+      </header>
+
+      <section class="game-panel" aria-label="game board">
+        <div class="drop-lane" id="drop-lane" aria-hidden="true"></div>
+        <canvas id="game-canvas" width="420" height="620" aria-label="game canvas"></canvas>
+
+        <div id="status-overlay" class="status-overlay" hidden>
+          <p id="status-text">点击开始</p>
+          <button id="overlay-new-game" class="action-btn" type="button">开始新游戏</button>
+        </div>
+      </section>
+
+      <p id="message" class="message" aria-live="polite">准备就绪，点击容器开始投放。</p>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>

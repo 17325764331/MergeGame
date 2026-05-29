@@ -1,0 +1,14 @@
+{
+  "filePath": ".spec-workflow/specs/defense-merge-drop-game/requirements.md",
+  "currentVersion": 1,
+  "snapshots": [
+    {
+      "version": 1,
+      "filename": "snapshot-001.json",
+      "timestamp": "2026-05-29T02:36:59.072Z",
+      "trigger": "initial",
+      "approvalId": "approval_1780022219055_7qsht7c7d",
+      "approvalTitle": "Requirements Approval: defense-merge-drop-game"
+    }
+  ]
+}

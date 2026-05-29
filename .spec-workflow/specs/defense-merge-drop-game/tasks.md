@@ -1,0 +1,122 @@
+# 实施任务清单（Tasks）
+
+## 任务说明
+
+- 任务状态：`[ ]` 待开始，`[-]` 进行中，`[x]` 已完成。
+- 每个任务开始前，先将对应项从 `[ ]` 改为 `[-]`。
+- 任务完成并调用 `log-implementation` 记录后，再将 `[-]` 改为 `[x]`。
+- 每个任务尽量控制在 1~3 个文件改动，保持原子性。
+
+---
+
+- [x] 1. 建立基础页面与主循环骨架
+  - **目标**：搭建可运行的纯前端游戏壳，具备基础渲染循环与空状态。
+  - **文件**：
+    - `index.html`
+    - `styles.css`
+    - `game.js`
+  - **需求映射**：US-01, US-05
+  - **_Prompt**：
+    - Implement the task for spec defense-merge-drop-game, first run spec-workflow-guide to get the workflow guide then implement the task:
+    - **Role**: Senior Frontend Engineer (Vanilla JS game bootstrap)
+    - **Task**: Create initial HTML structure, responsive layout containers, and JS game bootstrap with a requestAnimationFrame loop and game phase state (`idle/running/game_over`).
+    - **Restrictions**: Do not implement full physics/merge logic in this task; do not add backend dependencies.
+    - **_Leverage**: Reuse lightweight score-panel and overlay interaction patterns from `D:/liuyuming/GitProject/LittleApps/2048/game.js`.
+    - **_Requirements**: EARS-01, EARS-03, EARS-13, EARS-14.
+    - **Success**: Page loads on desktop/mobile, game loop runs, New Game button resets phase and base state.
+    - **Workflow Instructions**: Before coding, set this task to `[-]` in `tasks.md`; after coding and verification, call `log-implementation` with artifacts and file stats; finally set this task to `[x]`.
+
+- [x] 2. 实现装备等级配置与投放机制
+  - **目标**：落地 12 级装备链与“下一件待投放”生成逻辑。
+  - **文件**：
+    - `game.js`
+  - **需求映射**：US-01, US-03
+  - **_Prompt**：
+    - Implement the task for spec defense-merge-drop-game, first run spec-workflow-guide to get the workflow guide then implement the task:
+    - **Role**: Gameplay Systems Engineer
+    - **Task**: Add configurable weapon tier table (tier/name/radius/color/defenseGain) and spawn pipeline for current + next item preview compatible state.
+    - **Restrictions**: Do not hardcode scattered constants outside config table; do not implement scoring UI animation yet.
+    - **_Leverage**: Keep constants organization style similar to `2048/game.js` top-level config keys.
+    - **_Requirements**: EARS-01, EARS-02, EARS-07, EARS-08.
+    - **Success**: Spawned entities use tier config; higher tiers map to larger radius; next-tier state updates each drop.
+    - **Workflow Instructions**: Before coding, set this task to `[-]` in `tasks.md`; after coding and verification, call `log-implementation` with artifacts and file stats; finally set this task to `[x]`.
+
+- [x] 3. 实现基础物理更新与容器边界碰撞
+  - **目标**：实现掉落、重力、边界反弹/停靠与稳定判定。
+  - **文件**：
+    - `game.js`
+  - **需求映射**：US-01, US-03
+  - **_Prompt**：
+    - Implement the task for spec defense-merge-drop-game, first run spec-workflow-guide to get the workflow guide then implement the task:
+    - **Role**: Frontend Physics Engineer
+    - **Task**: Implement fixed timestep update, gravity integration, wall/floor collision response, velocity damping, and settled-threshold stabilization.
+    - **Restrictions**: Keep algorithm simple and deterministic; avoid introducing external physics libraries.
+    - **_Leverage**: Use current frame-loop and state scaffolding from Task 1; keep data structures consistent with design doc interfaces.
+    - **_Requirements**: EARS-02, EARS-07, EARS-08.
+    - **Success**: Dropped items fall naturally, stay inside container, and settle without infinite jitter.
+    - **Workflow Instructions**: Before coding, set this task to `[-]` in `tasks.md`; after coding and verification, call `log-implementation` with artifacts and file stats; finally set this task to `[x]`.
+
+- [x] 4. 实现同级碰撞合成与升级实体生成
+  - **目标**：同级碰撞触发合成，生成下一等级装备并带基础视觉反馈。
+  - **文件**：
+    - `game.js`
+    - `styles.css`
+  - **需求映射**：US-02, US-03
+  - **_Prompt**：
+    - Implement the task for spec defense-merge-drop-game, first run spec-workflow-guide to get the workflow guide then implement the task:
+    - **Role**: Gameplay Logic Engineer
+    - **Task**: Detect same-tier collision candidates, apply single-frame dedup merge resolution, remove originals, spawn upgraded entity, and show merge flash/scale feedback.
+    - **Restrictions**: Do not allow one entity to merge multiple times in the same frame; do not break deterministic order.
+    - **_Leverage**: Reuse existing collision pass from Task 3; use CSS classes for visual feedback.
+    - **_Requirements**: EARS-04, EARS-05, EARS-06, EARS-07.
+    - **Success**: Same-tier merges are consistent, visually perceivable, and produce correct next-tier entities.
+    - **Workflow Instructions**: Before coding, set this task to `[-]` in `tasks.md`; after coding and verification, call `log-implementation` with artifacts and file stats; finally set this task to `[x]`.
+
+- [x] 5. 实现国防值系统与最高记录持久化
+  - **目标**：按合成等级计入国防值，并实现历史最高值本地保存。
+  - **文件**：
+    - `game.js`
+    - `index.html`
+  - **需求映射**：US-04
+  - **_Prompt**：
+    - Implement the task for spec defense-merge-drop-game, first run spec-workflow-guide to get the workflow guide then implement the task:
+    - **Role**: Frontend Data & State Engineer
+    - **Task**: Implement defense value accumulation per merge tier, current/best display updates, localStorage best persistence with graceful fallback when storage unavailable.
+    - **Restrictions**: Keep key name stable (`defenseMerge.bestDefenseValue`); do not store full run replay or full game-state in this task.
+    - **_Leverage**: Mirror robust get/set localStorage error handling approach used by `2048/game.js`.
+    - **_Requirements**: EARS-09, EARS-10, EARS-11, EARS-12.
+    - **Success**: Defense value increments correctly; best value updates and survives refresh; storage failures do not crash gameplay.
+    - **Workflow Instructions**: Before coding, set this task to `[-]` in `tasks.md`; after coding and verification, call `log-implementation` with artifacts and file stats; finally set this task to `[x]`.
+
+- [x] 6. 实现失败判定、结算遮罩与重开流程
+  - **目标**：实现溢出失败检测、游戏结束状态与一键新游戏重开。
+  - **文件**：
+    - `game.js`
+    - `index.html`
+    - `styles.css`
+  - **需求映射**：US-05
+  - **_Prompt**：
+    - Implement the task for spec defense-merge-drop-game, first run spec-workflow-guide to get the workflow guide then implement the task:
+    - **Role**: Gameplay UX Engineer
+    - **Task**: Add warning line overflow timer logic, transition to `game_over`, block further drops, show end overlay, and reset in-run state via New Game while preserving best defense value.
+    - **Restrictions**: Do not reset persisted best value on restart; avoid hard page reload for reset.
+    - **_Leverage**: Reuse overlay/button event orchestration style from `2048/game.js`.
+    - **_Requirements**: EARS-03, EARS-13, EARS-14, EARS-15.
+    - **Success**: Overflow causes reliable game-over, replay starts cleanly, best value remains intact.
+    - **Workflow Instructions**: Before coding, set this task to `[-]` in `tasks.md`; after coding and verification, call `log-implementation` with artifacts and file stats; finally set this task to `[x]`.
+
+- [x] 7. 移动端触控与响应式适配收尾
+  - **目标**：完成移动端操控优化、响应式细节与体验验收。
+  - **文件**：
+    - `game.js`
+    - `styles.css`
+  - **需求映射**：US-01, US-04, 非功能需求
+  - **_Prompt**：
+    - Implement the task for spec defense-merge-drop-game, first run spec-workflow-guide to get the workflow guide then implement the task:
+    - **Role**: Frontend UX & Performance Engineer
+    - **Task**: Add touch drag/release input mapping, refine responsive layout and typography for portrait mobile + desktop, and perform lightweight performance tuning for smooth frame pacing.
+    - **Restrictions**: Keep vanilla JS/CSS stack; do not add unrelated features (props, network, accounts).
+    - **_Leverage**: Reuse touch gesture threshold handling concepts from `2048/game.js`.
+    - **_Requirements**: EARS-01, EARS-02, EARS-10 plus non-functional browser/mobile requirements.
+    - **Success**: Core gameplay is comfortable on phone and desktop; frame pacing remains stable under normal play.
+    - **Workflow Instructions**: Before coding, set this task to `[-]` in `tasks.md`; after coding and verification, call `log-implementation` with artifacts and file stats; finally set this task to `[x]`.
