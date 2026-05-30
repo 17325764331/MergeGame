@@ -23,9 +23,10 @@
   const WALL_RESTITUTION = 0.2;
   const FLOOR_RESTITUTION = 0.1;
   const SETTLED_SPEED = 34;
+  const DROP_LOCK_SETTLED_SPEED = 92;
   const FLOOR_FRICTION = 0.92;
   const MERGE_FLASH_DURATION = 0.2;
-  const DROP_UNLOCK_DELAY = 0.18;
+  const DROP_UNLOCK_DELAY = 0.28;
   const BEST_DEFENSE_VALUE_KEY = "defenseMerge.bestDefenseValue";
   const GAME_STATE_KEY = "defenseMerge.currentGameState";
   const SAVE_INTERVAL_SECONDS = 0.35;
@@ -398,7 +399,7 @@
     }
 
     const activeEntity = state.entities.find((entity) => entity.id === state.activeDropId);
-    const lockResolved = !activeEntity || activeEntity.isSettled;
+    const lockResolved = !activeEntity || isDropReadyForNext(activeEntity);
     if (!lockResolved) {
       state.dropUnlockTimer = 0;
       return;
@@ -410,6 +411,30 @@
       state.dropUnlockTimer = 0;
       announce(`可以投放下一件：${getTierConfig(state.currentDropTier).name}`);
     }
+  }
+
+  function isDropReadyForNext(entity) {
+    const lowSpeed = Math.abs(entity.vx) < DROP_LOCK_SETTLED_SPEED && Math.abs(entity.vy) < DROP_LOCK_SETTLED_SPEED;
+    return lowSpeed && (entity.isSettled || isEntitySupported(entity));
+  }
+
+  function isEntitySupported(entity) {
+    if (entity.y + entity.r >= CANVAS_HEIGHT - 1) {
+      return true;
+    }
+
+    return state.entities.some((other) => {
+      if (other.id === entity.id) {
+        return false;
+      }
+
+      const dx = other.x - entity.x;
+      const dy = other.y - entity.y;
+      const distance = Math.hypot(dx, dy);
+      const touching = distance <= entity.r + other.r + 2;
+      const below = other.y > entity.y;
+      return touching && below;
+    });
   }
 
   function render(currentState) {
