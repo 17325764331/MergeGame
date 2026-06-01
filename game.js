@@ -23,10 +23,9 @@
   const WALL_RESTITUTION = 0.2;
   const FLOOR_RESTITUTION = 0.1;
   const SETTLED_SPEED = 34;
-  const DROP_LOCK_SETTLED_SPEED = 92;
   const FLOOR_FRICTION = 0.92;
   const MERGE_FLASH_DURATION = 0.2;
-  const DROP_UNLOCK_DELAY = 0.28;
+  const DROP_UNLOCK_DELAY = 0.08;
   const BEST_DEFENSE_VALUE_KEY = "defenseMerge.bestDefenseValue";
   const GAME_STATE_KEY = "defenseMerge.currentGameState";
   const SAVE_INTERVAL_SECONDS = 0.35;
@@ -414,8 +413,7 @@
   }
 
   function isDropReadyForNext(entity) {
-    const lowSpeed = Math.abs(entity.vx) < DROP_LOCK_SETTLED_SPEED && Math.abs(entity.vy) < DROP_LOCK_SETTLED_SPEED;
-    return lowSpeed && (entity.isSettled || isEntitySupported(entity));
+    return isEntitySupported(entity);
   }
 
   function isEntitySupported(entity) {
